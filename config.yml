@@ -1,0 +1,15 @@
+theme: league
+title: De desarrollo a producción usando docker
+revealjs_config:
+  #  dependencies:
+  #  - src: 'js/custom.js'
+  history: true
+  parallaxBackgroundImage: 'images/index-background-claro.png'
+  parallaxBackgroundSize: '3000px 2120px'
+    #  menu:
+    #    side: left
+    #    titleSelector: 'h1'
+    #    hideMissingTitles: true
+    #    themes: false
+    #    openButton: true
+# El menu se comenta porque no funciona el highlighting

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+CLASS=$1
+if [ -z "$CLASS" ]; then
+  echo Specify which slide to serve: 01, 02, NN or all for the whole presentation
+  exit 1
+fi
+
+FILE_CLASS=slides-${CLASS}.md
+
+if [ ! -f "$FILE_CLASS" ]; then
+  if [ "$CLASS" = "all" ]; then
+    FILE_CLASS=slides.md
+    cat slides-*.md > $FILE_CLASS
+  else
+    echo "$FILE_CLASS doesn't exists"
+    exit 1
+  fi
+fi
+
+bundle exec reveal-ck generate -f $FILE_CLASS -d slides
+bundle exec reveal-ck serve -f $FILE_CLASS -d slides
+
