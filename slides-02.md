@@ -3,23 +3,93 @@
 ## Introducción
 
 ---
-## Contenedores tradicionales
+## Antecedentes
+
+* Antiguamente, transportar bienes tenía muchos problemas.
+  * Diferentes tamaños, formas, resistencias, etc.
+  * Capacidad de transporte reducida.
+  * Difícil realizar un seguimiento.
+  * Pérdida parcial de mercadería.
+  * Grandes costos.
+
+---
+## Contenedores
+
+* Los contenedores solucionaron muchos problemas:
+  * Un vendedor pone todos sus productos en un contenedor y sólo debe
+    preocuparse por ese contenedor.
+  * Los productos nunca se manipulan individualmente.
+  * Tamaños y formas estandarizadas, simplifica toda la cadena de transporte: el
+    transporte sólo debe llevar contenedores.
+
+---
+## Contenedores
+
+<img alt="Contenedores tradicionales" src="images/traditional-containers.jpg" height="480px" />
+
+---
+## ¿Qué es docker?
+
+* Contenedores de software.
+  * Empaqueta aplicaciones en una unidad estándar de intercambio.
+* Única pieza de software en un filesystem completo que contiene **todo lo
+  necesario** para ejecutar una aplicación: código, librerías, herramientas,
+  etc.
+* Garantiza que el software **siempre correrá de igual forma** sin importar su
+  ambiente.
+
+---
+## ¿Por qué Docker?
+
+* Diferencias entre el ambiente de desarrollo, testing y producción.
+* Instalación de una aplicación en diferentes plataformas.
+* Deploy de aplicaciones complejas.
+* Ejecución de código antiguo.
+
+---
+## Matriz del infierno
+
+<img alt="Matriz del infierno sin Docker" src="images/matrix-of-hell-wo-docker.jpg" height="480px" />
+
+---
+## Matriz del infierno
+
+<img alt="Matriz del infierno con Docker" src="images/matrix-of-hell.jpg" height="480px" />
+
+---
+## Comparación con máquinas virtuales
+
+<table>
+<tr><td>
+<img alt="Máquina virtual" src="images/wid-vm.png" height="300px" />
+</td><td>
+<img alt="Contenedor" src="images/wid-container.png" height="300px" />
+</td></tr>
+</table>
+
+---
+## Características de Docker
+
+* Los contenedores Docker son:
+  * **Livianos**: menos overhead para su ejecución.
+  * **Abiertos**: basados en estándares abiertos.
+  * **Seguros**: aislan las aplicaciones entre sí y de la infraestructura donde corren.
+
 
 ---
 ## Historia
 
 * Emerge como proyecto de SL en 2013.
-* Virtualización a nivel SO: Linux.
-  * Y a partir de 2016, Windows.
+* Virtualización a nivel de sistema operativo.
 * Se basa en el uso de:
-  * [cgroups](https://en.wikipedia.org/wiki/Cgroups) para restringir recursos
+  * [Cgroups](https://en.wikipedia.org/wiki/Cgroups) para restringir recursos
     como cpu, memoria, IO, red, etc.
-  * [kernel namespaces](https://en.wikipedia.org/wiki/Linux_namespaces) permite
+  * [Kernel namespaces](https://en.wikipedia.org/wiki/Linux_namespaces) permite
     aislar y virtualizar recursos de una colección de procesos como por ejemplo:
     PID, hostname, UID, acceso a la red, comunicación entre procesos,
     filesystem, etc.
-  * [Filesystem con características de unión](https://docs.docker.com/engine/userguide/storagedriver/selectadriver/)
-    como es el caso de AUFS, OverlayFS, Btrfs, Device Mapper, etc.
+  * [Filesystem de unión](https://docs.docker.com/engine/userguide/storagedriver/selectadriver/)
+    como es el caso de AUFS, OverlayFS, Btrfs, Device Mapper, ZFS, etc.
 
 ---
 ## Historia
@@ -31,22 +101,6 @@
   directamente al kernel para manipular cgroups, namespaces, apparmor, interfaces
   de red, etc.
 
----
-## ¿Qué es docker?
-
-* Empaqueta aplicaciones en una unidad estándar de intercambio.
-  * Los contenedores docker engloban una pieza de software en un filesystem
-    completo que contiene **todo lo necesario** para correr el código: código,
-    runtime, herramientas de sistema, librerías, etc.
-* Esto garantiza que el software **siempre correrá de igual forma** sin importar
-  su ambiente.
-
----
-## Características de los contenedores
-
-* Livianos.
-* Abiertos.
-* Seguros.
 
 ---
 ## Imágenes y contenedores
