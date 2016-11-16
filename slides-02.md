@@ -171,6 +171,8 @@ docker build
 docker pull
 docker push
 docker tag
+docker inspect
+docker volume
 ```
 
 ---
