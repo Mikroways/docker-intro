@@ -69,6 +69,9 @@ es lo que ocupa el contenedor sumado al tamaño de la imagen
 * **Un proceso por contenedor:** en la mayoría de los casos, se debe correr un
   proceso por contenedor. Desacoplando aplicaciones en múltiples contenedores
   hacen mucho más simple el escalamiento horizontal y reuso de contenedores
+* **La (in)necesidad de ssh**: necesitar acceder a un contenedor es algo que
+  debemos tratar de evitar. Si pensamos en términos de infraestructura
+  inmutable, el servicio no debería considerar SSH
 
 ***
 
