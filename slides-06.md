@@ -1,38 +1,43 @@
 ***
 # Docker en producción
+
 ---
 ## Los distintos esquemas
 
-* Usando docker para iniciar servicios de forma aislada
-* Usando un cluster de docker
+* Usando Docker para iniciar servicios de forma aislada.
+* Usando un cluster de docker.
+
 ---
 ## Docker standalone
 
-* Cada servidor Linux corre el servicio de docker en forma aislada
+* Cada servidor Linux corre el servicio de Docker en forma aislada.
 * Los contenedores pueden iniciarse automáticamente durante el booteo usando:
-  * Manejadores de procesos como [upstart](http://upstart.ubuntu.com/), [systemd](https://freedesktop.org/wiki/Software/systemd/) o [supervisor](http://supervisord.org/)
-  * A través de políticas de reinicio (Docker >= 1.2)
+  * Manejadores de procesos como [upstart](http://upstart.ubuntu.com/),
+    [systemd](https://freedesktop.org/wiki/Software/systemd/) o [supervisor](http://supervisord.org/).
+  * A través de políticas de reinicio (Docker >= 1.2).
+
 ---
 ## A través de manejadores de procesos
 
-Dado que docker no setea políticas de reinicio por defecto, cuando un servicio iniciado con
-docker termina, no se toma ninguna acción. 
+Dado que Docker no setea políticas de reinicio por defecto, cuando un servicio
+iniciado con Docker termina, no se toma ninguna acción. 
 
 <small>
-Las políticas de reinicio podrían conflictuar con los manejadores de procesos
+Las políticas de reinicio podrían conflictuar con los manejadores de procesos.
 </small>
 
-### Integración con los Manejadores de procesos
+### Integración con los manejadores de procesos
 
 * Cuando un contenedor ya corre como esperamos, entonces podemos attacharlo a un
   manejador de procesos para que él lo maneje.
-* Corriendo  `docker start -a` docker attachará al contenedor corriendo (o
+* Corriendo  `docker start -a` Docker attachará al contenedor corriendo (o
   iniciará si no está corriendo) reenviando las señales al manejador de
-procesos.
+  procesos.
+
 ---
 ## Ejemplos
 
-Para entender los siguientes ejemplos veremos qué hace
+Para entender los siguientes ejemplos veremos qué hace:
 
 `docker start -a`
 
@@ -54,7 +59,7 @@ docker start -a nginx_docker # reinicia el servicio
 ---
 ## Ejemplo upstart
 
-Un contenedor que inicia redis
+Un contenedor que inicia Redis.
 
 ```bash
 description "Redis container"
@@ -102,13 +107,13 @@ reiniciado cuando termina.
 ---
 ## Políticas de reinicio
 
-* **no**: no iniciar el contenedor cuando termina. *Valor por defecto*
+* **no**: no iniciar el contenedor cuando termina. *Valor por defecto*.
 * **on-failure:[max]**: reiniciar solo si el contenedor termina con exit
-  status diferente a cero. Limitar opcionalmente los reintentos de reinicio
+  status diferente a cero. Limitar opcionalmente los reintentos de reinicio.
 * **always**: siempre reiniciar el contenedor. Además el contenedor se iniciará
-  cuando inicia el daemon docker
+  cuando inicia el daemon Docker.
 * **unless-stopped**: idem anterior, salvo que en un reinicio del servicio
-  docker considera si previamente fue parado
+  Docker considera si previamente fue detenido.
 
 ---
 ## Ejemplo de política de reinicio
@@ -131,17 +136,19 @@ docker inspect  -f "{{ .RestartCount }}" nginx_docker
 nginx recibe la señal QUIT para finalizar el proceso
 https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
 </small>
+
 ---
 ## Clusters docker
 
-* La idea por detrás de los clusters docker es la de disponer de nodos Linux con el engine
-docker de tal forma de poder utilizarlos para correr contenedores
+* La idea detrás de los clusters Docker es la de disponer de nodos Linux con el
+  Docker Engine de tal forma de poder utilizarlos para correr contenedores.
   * Estos Linux deben ser muy pequeños dado que su única razón de ser es la de
-proveer un kernel, no utilizades
+    proveer un kernel, no utilidades.
 * Serían como equipos físicos pertenecientes a un pool de hardware disponible en
-un virtualizador como XEN o VMWare
+  un virtualizador como XEN o VMWare.
+
 ---
-### Los clusters más conocidos
+### Los clusteres más conocidos
 
 <table class="product_logos" >
 
@@ -170,30 +177,34 @@ un virtualizador como XEN o VMWare
 ---
 ## Características de todos los clusteres
 
-* Diseño descentralizado
-* Servicios, pods o stacks en vez de contenedores
-* Posibilidad de escalar
-* Conciliación para alcanzar el estado deseado
-* Service discovery
-* Load balancing
-* Actualizaciones en caliente
+* Diseño descentralizado.
+* Servicios, pods o stacks en vez de contenedores.
+* Posibilidad de escalar.
+* Conciliación para alcanzar el estado deseado.
+* Service discovery.
+* Load balancing.
+* Actualizaciones en caliente.
+
 ---
 ## Consideraciones
 
-* El scheduller es el encargado de determinar donde se inicia cada contenedor
-* Asociado al scheduller trabajan los health checks que garantizan la
-  conciliación de un estado deseado: que hayan N contenedores para el servicio X
-* La distribución mágica del scheduller complica el manejo de volúmenes
-  * Los volúmenes pertenecen a un nodo
-  * Si el nodo cambia, se pierden los datos
----
-## Volumenes distribuidos
+* El scheduler es el encargado de determinar donde se inicia cada contenedor.
+* Asociado al scheduler trabajan los health checks que garantizan la
+  conciliación de un estado deseado: que hayan N contenedores para el servicio
+  X.
+* La distribución mágica del scheduler complica el manejo de volúmenes.
+  * Los volúmenes pertenecen a un nodo.
+  * Si el nodo cambia, se pierden los datos.
 
-* Necesidad de compartir datos entre el cluster
-* Aparecen diferentes implementaciones de volumenes compartidos. Las más
+---
+## Volúmenes distribuidos
+
+* Necesidad de compartir datos entre los nodos del cluster.
+* Aparecen diferentes implementaciones de volúmenes compartidos. Las más
   populares son:
   * [Convoy](https://github.com/rancher/convoy)
   * [Flocker](https://clusterhq.com/flocker/introduction/)
+
 ---
 ## Ejemplo Rancher
 
