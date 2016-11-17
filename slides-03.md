@@ -9,6 +9,8 @@
     respecto de la imagen original.
 * Entonces los contenedores deberían minimizar los cambios respecto de la imagen
   original.
+  * Optimizando el uso de espacio y evitando impactos de performance.
+  * Promoviendo la reusabilidad.
 
 ---
 ## Inmutabilidad en la infraestructura
