@@ -93,35 +93,5 @@ $ docker-compose logs -f
   wordpress_1  | 127.0.0.1 - - [16/Nov/2016:17:56:41 +0000] "GET /favicon.ico HTTP/1.1" 200 228 "http://127.0.0.1:8000/wp-admin/install.php" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.98 Safari/537.36"
 ```
 
----
-## Iniciando y deteniendo Wordpress
-
-```bash
-$ docker-compose ps
-          Name                       Command               State          Ports
-  -------------------------------------------------------------------------------------
-  wordpress_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
-  wordpress_wordpress_1   /entrypoint.sh apache2-for ...   Up      0.0.0.0:8000->80/tcp
-
-$ docker-compose stop
-  Stopping wordpress_wordpress_1 ... done
-  Stopping wordpress_db_1 ... done
-
-$ docker-compose ps
-          Name                       Command               State    Ports
-  -----------------------------------------------------------------------
-  wordpress_db_1          docker-entrypoint.sh mysqld      Exit 0
-  wordpress_wordpress_1   /entrypoint.sh apache2-for ...   Exit 0
-
-$ docker-compose start
-  Starting db ... done
-  Starting wordpress ... done
-
-$ docker-compose ps
-          Name                       Command               State          Ports
-  -------------------------------------------------------------------------------------
-  wordpress_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
-  wordpress_wordpress_1   /entrypoint.sh apache2-for ...   Up      0.0.0.0:8000->80/tcp
-```
 ***
 
