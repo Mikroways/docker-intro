@@ -45,6 +45,7 @@
 * Instalación de una aplicación en diferentes plataformas.
 * Deploy de aplicaciones complejas.
 * Ejecución de código antiguo.
+* Simplicidad para escalar horizontalmente.
 
 ---
 ## Matriz del infierno
@@ -66,15 +67,6 @@
 <img alt="Contenedor" src="images/wid-container.png" height="300px" />
 </td></tr>
 </table>
-
----
-## Características de Docker
-
-* Los contenedores Docker son:
-  * **Livianos**: menos overhead para su ejecución.
-  * **Abiertos**: basados en estándares abiertos.
-  * **Seguros**: aislan las aplicaciones entre sí y de la infraestructura donde corren.
-
 
 ---
 ## Historia
@@ -163,16 +155,20 @@
 ## Comandos básicos
 
 ```bash
+# Más usados
 docker run
 docker ps
-docker commit
-docker images
 docker build
+docker images
+docker logs
+docker inspect
+docker volume
+
+# Otros comandos comunes
+docker commit
 docker pull
 docker push
 docker tag
-docker inspect
-docker volume
 ```
 
 ---
