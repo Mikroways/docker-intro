@@ -12,8 +12,6 @@
 ## Características de los volúmenes
 
 * No utilizan un sistema de archivos de unión (UFS).
-* Se inicializan cuando se crea un contenedor.
-* Concepto de montar un directorio del SO host.
 * Pueden compartirse y reusarse entre contenedores.
 * Los cambios se hacen directamente en el volumen.
 * La información del volumen **no se incluye** en la imagen.
