@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+git branch -D gh-pages || echo "Branch gh-pages does not exist locally"
+git push origin :gh-pages || echo "Branch gh-pages does not exist remotely"
+git checkout --orphan gh-pages
+cat slides-*.md > slides.md
+bundle exec reveal-ck generate -f slides.md -d slides
+git rm -fr .
+rm slides.md
+mv slides/* .
+rmdir slides
+git add -A .
+git commit -a -m "Publico en GH"
+git push origin gh-pages
+git checkout master
