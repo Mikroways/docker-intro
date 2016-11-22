@@ -148,7 +148,7 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
   un virtualizador como XEN o VMWare.
 
 ---
-### Los clusteres más conocidos
+### Los clusters más conocidos
 
 <table class="product_logos" >
 
@@ -175,7 +175,7 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
 </table>
 
 ---
-## Características de todos los clusteres
+## Características de todos los clusters
 
 * Diseño descentralizado.
 * Servicios, pods o stacks en vez de contenedores.
