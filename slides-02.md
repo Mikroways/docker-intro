@@ -175,7 +175,7 @@ docker tag
 ## Nuestro primer contenedor
 
 ```bash
-$ docker run -it ubuntu:16.04 /bin/bash
+$ docker run --rm -it ubuntu:16.04 /bin/bash
   Unable to find image 'ubuntu:16.04' locally
   16.04: Pulling from library/ubuntu
   
@@ -205,7 +205,7 @@ $ docker run -it ubuntu:16.04 /bin/bash
 
 ```bash
 FROM ubuntu:16.04
-MAINTAINER Leandro Di Tommaso
+MAINTAINER Mikroways
 
 # Instalar Nginx y configurar una página personalizada
 RUN apt-get update && apt-get install -y nginx
@@ -220,7 +220,7 @@ CMD    ["nginx", "-g", "daemon off;"]
 ## Nuestra primer imagen
 
 ```bash
-$ docker build -t leoditommaso/nginx:1.0.0 .
+$ docker build -t mikroways/nginx:1.0.0 .
   Sending build context to Docker daemon 2.048 kB
   Step 1 : FROM ubuntu:16.04
   16.04: Pulling from library/ubuntu
@@ -232,7 +232,7 @@ $ docker build -t leoditommaso/nginx:1.0.0 .
   Digest: sha256:2d44ae143feeb36f4c898d32ed2ab2dffeb3a573d2d8928646dfc9cb7deb1315
   Status: Downloaded newer image for ubuntu:16.04
    ---> f753707788c5
-  Step 2 : MAINTAINER Leandro Di Tommaso
+  Step 2 : MAINTAINER Mikroways
    ---> Running in f93e6923c21e
    ---> a1144bb80b28
   Removing intermediate container f93e6923c21e
@@ -266,7 +266,7 @@ $ docker build -t leoditommaso/nginx:1.0.0 .
 
 $ docker images
   REPOSITORY          TAG    IMAGE ID       CREATED          SIZE
-  leoditommaso/nginx  1.0.0  8fd110f3364a   2 minutes ago    223.2 MB
+  mikroways/nginx     1.0.0  8fd110f3364a   2 minutes ago    223.2 MB
   ubuntu              16.04  f753707788c5   4 weeks ago      127.2 MB
 ```
 
@@ -274,7 +274,7 @@ $ docker images
 ## Nuestra primer imagen
 
 ```bash
-$ docker run -d -p 80:80 leoditommaso/nginx:1.0.0
+$ docker run -d -p 80:80 mikroways/nginx:1.0.0
 ```
 
 <img alt="Nginx con Docker personalizado" src="images/docker-nginx-custom.png" height="300px" />
@@ -283,7 +283,7 @@ $ docker run -d -p 80:80 leoditommaso/nginx:1.0.0
 ## Reusando capas
 
 ```bash
-$ docker build -t leoditommaso/nginx:1.1.0 .
+$ docker build -t mikroways/nginx:1.1.0 .
   Sending build context to Docker daemon 2.048 kB
   Step 1 : FROM ubuntu:16.04
    ---> f753707788c5
@@ -310,8 +310,8 @@ $ docker build -t leoditommaso/nginx:1.1.0 .
 
 $ docker images
   REPOSITORY          TAG    IMAGE ID       CREATED          SIZE
-  leoditommaso/nginx  1.0.0  8fd110f3364a   4 minutes ago    223.2 MB
-  leoditommaso/nginx  1.1.0  8fd110f3364a   4 minutes ago    223.2 MB
+  mikroways/nginx     1.0.0  8fd110f3364a   4 minutes ago    223.2 MB
+  mikroways/nginx     1.1.0  8fd110f3364a   4 minutes ago    223.2 MB
   ubuntu              16.04  f753707788c5   4 weeks ago      127.2 MB
 ```
 
@@ -354,7 +354,7 @@ $ docker ps
 
 ```bash
 FROM nginx
-MAINTAINER Leandro Di Tommaso
+MAINTAINER Mikroways
 
 # Configurar una página personalizada
 RUN mkdir /usr/share/nginx/html/ejemplo
@@ -365,11 +365,11 @@ RUN echo "<html><h1>Nginx en Docker</h1></html>" > /usr/share/nginx/html/ejemplo
 ## Rehaciendo nuestra imagen
 
 ```bash
-$ docker build -t leoditommaso/nginx:1.2.0 .
+$ docker build -t mikroways/nginx:1.2.0 .
   Sending build context to Docker daemon 2.048 kB
   Step 1 : FROM nginx
    ---> 4a88d06e26f4
-  Step 2 : MAINTAINER Leandro Di Tommaso
+  Step 2 : MAINTAINER Mikroways
    ---> Running in a26b83fa5203
    ---> 262f7d703c38
   Removing intermediate container a26b83fa5203
@@ -389,12 +389,12 @@ $ docker build -t leoditommaso/nginx:1.2.0 .
 ## Rehaciendo nuestra imagen
 
 ```bash
-$ docker run -d -p 80:80 leoditommaso/nginx:1.2.0
+$ docker run -d -p 80:80 mikroways/nginx:1.2.0
   266399f252a7ef71e4821b375f0edc1777e7dec2f907bb0434c46c629fd3926d
 
 $ docker ps
 CONTAINER ID    IMAGE                      COMMAND                 CREATED        STATUS        PORTS                         NAMES
-266399f252a7    leoditommaso/nginx:1.2.0   "nginx -g 'daemon off"  3 seconds ago  Up 3 seconds  0.0.0.0:80->80/tcp, 443/tcp   peaceful_euler
+266399f252a7    mikroways/nginx:1.2.0   "nginx -g 'daemon off"  3 seconds ago  Up 3 seconds  0.0.0.0:80->80/tcp, 443/tcp   peaceful_euler
 ```
 
 <img alt="Nginx personalizado desde imagen de Docker oficinal" src="images/docker-nginx-custom.png" height="300px" />

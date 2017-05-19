@@ -203,6 +203,7 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
 * Aparecen diferentes implementaciones de volúmenes compartidos. Las más
   populares son:
   * [Convoy](https://github.com/rancher/convoy)
+      * _Hoy Rancher promueve rancher-nfs_
   * [Flocker](https://clusterhq.com/flocker/introduction/)
 
 ---
