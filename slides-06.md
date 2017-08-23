@@ -5,7 +5,7 @@
 ## Los distintos esquemas
 
 * Usando Docker para iniciar servicios de forma aislada.
-* Usando un cluster de docker.
+* Usando un cluster de Docker.
 
 ---
 ## Docker standalone
@@ -26,7 +26,8 @@ iniciado con Docker termina, no se toma ninguna acción.
 Las políticas de reinicio podrían conflictuar con los manejadores de procesos.
 </small>
 
-### Integración con los manejadores de procesos
+---
+## Integración con los manejadores de procesos
 
 * Cuando un contenedor ya corre como esperamos, entonces podemos attacharlo a un
   manejador de procesos para que él lo maneje.
@@ -118,24 +119,48 @@ reiniciado cuando termina.
 ---
 ## Ejemplo de política de reinicio
 
+Script que espera 5 segundos y termina.
+
 ```bash
-# Iniciamos ninx con restart policy always
-docker run -d --restart=always --name=nginx_docker -p 9090:80 nginx
+#!/bin/bash
 
-# Verificamos la cantidad de reinicios:
-docker inspect  -f "{{ .RestartCount }}" nginx_docker
+sleep 5
+exit 0
+```
 
-# Matamos abruptamente el contenedor
-docker exec nginx_docker kill -QUIT 1 
-
-# Verificamos la cantidad de reinicios:
-docker inspect  -f "{{ .RestartCount }}" nginx_docker
+Dockerfile
 
 ```
-<small>
-nginx recibe la señal QUIT para finalizar el proceso
-https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
-</small>
+FROM ubuntu:16.04
+MAINTAINER Mikroways
+
+ADD prueba_restart.sh /
+
+CMD ["/bin/bash", "/prueba_restart.sh"]
+```
+
+---
+## Ejemplo de política de reinicio
+
+```bash
+# Creamos la imagen
+docker build -t mikroways/restart_policy .
+
+# Iniciamos con restart policy always
+docker run -d --restart=always --name=prueba mikroways/restart_policy
+
+# Verificamos la cantidad de reinicios
+watch 'docker inspect  -f "{{ .RestartCount }}" prueba'
+```
+
+---
+## Ejemplo de política de reinicio
+
+Si en lugar de utilizar always, hubiéramos elegido on-failure, el contenedor no
+se habría reiniciado porque el código de retorno es 0.
+
+Como ejercicio: probar con esa política utilizando `exit 0` y cambiando luego
+por `exit 1`.
 
 ---
 ## Clusters docker
@@ -159,7 +184,7 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
 
 <tr>
 <td> <img alt="rancher" src="images/rancher-logo.png" /> </td>
-<td> <a href="http://rancher.com/">Rancher</a> </td>
+<td> <a href="http://rancher.com/">Cattle/Rancher</a> </td>
 </tr>
 
 <tr>
@@ -188,10 +213,9 @@ https://www.nginx.com/resources/wiki/start/topics/tutorials/commandline/
 ---
 ## Consideraciones
 
-* El scheduler es el encargado de determinar donde se inicia cada contenedor.
+* El scheduler es el encargado de determinar dónde se inicia cada contenedor.
 * Asociado al scheduler trabajan los health checks que garantizan la
-  conciliación de un estado deseado: que hayan N contenedores para el servicio
-  X.
+  conciliación de un estado deseado: que haya N contenedores para el servicio X.
 * La distribución mágica del scheduler complica el manejo de volúmenes.
   * Los volúmenes pertenecen a un nodo.
   * Si el nodo cambia, se pierden los datos.

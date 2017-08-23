@@ -41,11 +41,19 @@
 ---
 ## ¿Por qué Docker?
 
+* Rápida configuración de entornos de desarrollo.
+* Equipos más “limpios”.
+* Favorece las arquitecturas de microservicios.
+* Simplifica la distribución.
+
+---
+## ¿Por qué Docker?
+
 * Diferencias entre el ambiente de desarrollo, testing y producción.
 * Instalación de una aplicación en diferentes plataformas.
 * Deploy de aplicaciones complejas.
 * Ejecución de código antiguo.
-* Simplicidad para escalar horizontalmente.
+* Escalamiento horizontal.
 
 ---
 ## Matriz del infierno
@@ -62,37 +70,38 @@
 
 <table>
 <tr><td>
-<img alt="Máquina virtual" src="images/wid-vm.png" height="300px" />
-</td><td>
-<img alt="Contenedor" src="images/wid-container.png" height="300px" />
+<img alt="Docker vs. VMs" src="images/wid-vm-updated.png" height="300px" />
 </td></tr>
 </table>
 
 ---
-## Historia
+## Características generales
 
 * Emerge como proyecto de SL en 2013.
 * Virtualización a nivel de sistema operativo.
-* Se basa en el uso de:
-  * [Cgroups](https://en.wikipedia.org/wiki/Cgroups) para restringir recursos
-    como cpu, memoria, IO, red, etc.
-  * [Kernel namespaces](https://en.wikipedia.org/wiki/Linux_namespaces) permite
-    aislar y virtualizar recursos de una colección de procesos como por ejemplo:
-    PID, hostname, UID, acceso a la red, comunicación entre procesos,
-    filesystem, etc.
-  * [Filesystem de unión](https://docs.docker.com/engine/userguide/storagedriver/selectadriver/)
-    como es el caso de AUFS, OverlayFS, Btrfs, Device Mapper, ZFS, etc.
+* Contenedores independientes en una instancia Linux que evita el overhead de
+  manipular VMs.
+* A partir de la versión 0.9 [incorpora libcontainer y execution 
+  drivers](https://blog.docker.com/2014/03/docker-0-9-introducing-execution-drivers-and-libcontainer/).
 
 ---
-## Historia
+## Características generales
 
-* Con las características antes mencionadas se obtienen contenedores
-  independientes en una instancia Linux que evita el overhead de manipular VMs.
-* Antes de la versión 0.9, Docker usaba LXC como base. A partir de la 0.9
-  incorporaron libcontainer, eliminando la dependencia de LXC dado que accede
-  directamente al kernel para manipular cgroups, namespaces, apparmor, interfaces
-  de red, etc.
+<img alt="Libcontainer" src="images/libcontainer_execution_drivers.png" height="450px" />
 
+---
+## Características generales
+
+* [Cgroups](https://en.wikipedia.org/wiki/Cgroups) para restringir recursos
+  como cpu, memoria, IO, red, etc.
+* [Namespaces](https://en.wikipedia.org/wiki/Linux_namespaces) permiten
+  aislar recursos de una colección de procesos como por ejemplo: PID,
+  hostname, UID, acceso a la red, comunicación entre procesos, filesystem, etc.
+* [Capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html):
+  permiten segmentar los privilegios asociados normalmente a root en unidades,
+  en contraposición con el clásico modo privilegiado y no privilegiado.
+* [Filesystem de unión](https://docs.docker.com/engine/userguide/storagedriver/selectadriver/)
+  como es el caso de AUFS, OverlayFS, Btrfs, Device Mapper, ZFS, etc.
 
 ---
 ## Imágenes y contenedores

@@ -8,11 +8,10 @@
 </div>
 <div style="float: right; width: 65%" >
 <ul>
-<li>Fundador de Mikroways.</li>
-<li>Docente en UNLP e Instructor CCNA.</li>
-<li>DevOp en CeSPI-UNLP.</li>
-<li>Miembro del NOC de UNLP entre 2007 y 2012.</li>
-<li>Miembro del NOC de INTA en 2012.
+<li>Fundador de Mikroways en 2004</li>
+<li>Docente en UNLP</li>
+<li>Trabajo en administración de redes y servidores desde 2007</li>
+<li>Con DevOps desde 2013, Docker 2014</li>
 </ul>
 </div>
 
@@ -50,13 +49,13 @@ perteneciente a CeSPI </li>
 ---
 ## ¿Qué hacemos en nuestro trabajo?
 
-* En 2016 formalizamos a [Mikroways](http://www.mikroways.net) como una sociedad.
+* En 2016 establecimos [Mikroways](http://www.mikroways.net) como una sociedad.
   * Trabajamos con DevOps (Chef y Docker).
   * Monitoreo inteligente (Estadísticas y logs).
   * Consultoría.
   * Capacitaciones.
   * Cloud computing.
+  * Desarrollo de software.
   * IoT.
-* Partners de Chef, Docker y Amazon.
+* Partners de Chef, Docker, Rancher y Amazon.
 ***
-

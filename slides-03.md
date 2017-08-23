@@ -53,19 +53,71 @@ que generarán grandes capas con datos dinámicos.
 
 Ante la actualización del contenedor, estos datos se perderán.
 
-### El siguiente comando permite verificar esto
+---
+## ¿Cómo verificar si mis contenedores crecen?
+
+```bash
+$ docker run -it ubuntu:16.04 /bin/bash
+root@6ce39ac62830:/#
+```
 
 ```bash
 $ docker ps -s
 
-CONTAINER ID        IMAGE     .....               SIZE
-0d5c12033ee3        nginx     .....    2 B (virtual 182.8 MB)
-
+docker ps -s
+CONTAINER ID        IMAGE          ....        SIZE
+6ce39ac62830        ubuntu:16.04   ....        0B (virtual 120MB)
 ```
+
+---
+## ¿Cómo verificar su mis contenedores crecen?
+
+```bash
+root@6ce39ac62830:/# echo "hola" > /tmp/prueba
+```
+
+```bash
+$ docker ps -s
+
+docker ps -s
+CONTAINER ID        IMAGE          ....        SIZE
+6ce39ac62830        ubuntu:16.04   ....        5B (virtual 120MB)
+```
+
+---
+## ¿Cómo verificar si mis contenedores crecen?
+
 <small>
 El tamaño es lo que crece el contenedor respecto de la imagen. El tamaño virtual
 es lo que ocupa el contenedor sumado al tamaño de la imagen.
 </small>
+
+```bash
+root@6ce39ac62830:/# dd if=/dev/zero of=/tmp/lala.img bs=1M count=10
+10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 0.0127865 s, 820 MB/s
+```
+
+```bash
+$ docker ps -s
+
+docker ps -s
+CONTAINER ID        IMAGE          ....        SIZE
+6ce39ac62830        ubuntu:16.04   ....        10.5MB (virtual 131MB)
+```
+
+---
+## ¿Cómo verificar si mis contenedores crecen?
+
+Es posible ver en los contenedores qué archivos cambiaron.
+
+```
+$ docker diff 6ce39ac62830
+C /tmp
+A /tmp/lala.img
+A /tmp/prueba
+```
 
 ---
 ## Buenas prácticas
