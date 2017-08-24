@@ -15,10 +15,10 @@
 ---
 ## Versiones de Docker Compose
 
-* Hay dos versiones diferentes, la 1 y la 2.
-* No son compatibles entre sí.
-* Pequeños cambios en el archivo de texto.
-* Veremos la sintaxis de la versión 2.
+* Hay tres versiones mayores diferentes, la 1, la 2 y la 3.
+* Entre la 1 y la 2 no son compatibles entre sí, entre la 2 y la 3 comparten
+  estructura, pero se quitan algunas opciones en la 3.
+* Veremos la sintaxis de la versión 3.
 
 ---
 ## Docker Compose: ejemplo
@@ -33,7 +33,7 @@
 ## Levantando un Wordpress
 
 ```bash
-version: '2'
+version: '3'
 
 services:
   db:

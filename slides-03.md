@@ -33,7 +33,7 @@
     por fuera del alcance de la *infraestructura inmutable*.
   * Existe un template y/o conjunto de instrucciones que permiten desplegar una
     instancia de la aplicación desde cero.
-* El segundo punto lo resuelve fácilmente docker
+* El segundo punto lo resuelve fácilmente Docker.
 
 ---
 ## ¿Qué es dinámico entonces?
