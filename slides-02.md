@@ -5,7 +5,7 @@
 ---
 ## Antecedentes
 
-* Antiguamente, transportar bienes tenía muchos problemas.
+* Antiguamente, transportar bienes tenía muchos problemas:
   * Diferentes tamaños, formas, resistencias, etc.
   * Capacidad de transporte reducida.
   * Difícil realizar un seguimiento.
@@ -15,7 +15,7 @@
 ---
 ## Contenedores
 
-* Los contenedores solucionaron muchos problemas:
+* Los contenedores solucionaron muchos de ellos:
   * Un vendedor pone todos sus productos en un contenedor y sólo debe
     preocuparse por ese contenedor.
   * Los productos nunca se manipulan individualmente.
@@ -42,13 +42,7 @@
 ## ¿Por qué Docker?
 
 * Rápida configuración de entornos de desarrollo.
-* Equipos más “limpios”.
 * Favorece las arquitecturas de microservicios.
-* Simplifica la distribución.
-
----
-## ¿Por qué Docker?
-
 * Diferencias entre el ambiente de desarrollo, testing y producción.
 * Instalación de una aplicación en diferentes plataformas.
 * Deploy de aplicaciones complejas.
@@ -97,7 +91,7 @@
 * [Namespaces](https://en.wikipedia.org/wiki/Linux_namespaces) permiten
   aislar recursos de una colección de procesos como por ejemplo: PID,
   hostname, UID, acceso a la red, comunicación entre procesos, filesystem, etc.
-* [Capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html):
+* [Capabilities](http://man7.org/linux/man-pages/man7/capabilities.7.html)
   permiten segmentar los privilegios asociados normalmente a root en unidades,
   en contraposición con el clásico modo privilegiado y no privilegiado.
 * [Filesystem de unión](https://docs.docker.com/engine/userguide/storagedriver/selectadriver/)
@@ -335,6 +329,44 @@ $ docker history 8fd110f3364a
   4c9ad433769b   9 minutes ago   /bin/sh -c echo "<html><h1>Nginx en Docker</h   38 B
   aff42d6aa899   9 minutes ago   /bin/sh -c mkdir /var/www/html/ejemplo          0 B
   136943551ea1   9 minutes ago   /bin/sh -c apt-get update && apt-get install    96.07 MB
+  a1144bb80b28   11 minutes ago  /bin/sh -c #(nop)  MAINTAINER Leandro Di Tomm   0 B
+  f753707788c5   4 weeks ago     /bin/sh -c #(nop)  CMD ["/bin/bash"]            0 B
+  <missing>      4 weeks ago     /bin/sh -c mkdir -p /run/systemd && echo 'doc   7 B
+  <missing>      4 weeks ago     /bin/sh -c sed -i 's/^#\s*\(deb.*universe\)$/   1.895 kB
+  <missing>      4 weeks ago     /bin/sh -c rm -rf /var/lib/apt/lists/*          0 B
+  <missing>      4 weeks ago     /bin/sh -c set -xe   && echo '#!/bin/sh' > /u   745 B
+  <missing>      4 weeks ago     /bin/sh -c #(nop) ADD file:b1cd0e54ba28cb1d6d   127.2 MB
+```
+
+---
+## Historia de la imagen
+
+Reducir la historia de nuestra imagen
+
+```
+FROM ubuntu:16.04
+MAINTAINER Mikroways
+
+# Instalar Nginx y configurar una página personalizada
+RUN apt-get update && apt-get install -y nginx && \
+    mkdir /var/www/html/ejemplo && \
+    echo "<html><h1>Nginx en Docker</h1></html>" > /var/www/html/ejemplo/index.html
+
+EXPOSE 80
+CMD    ["nginx", "-g", "daemon off;"]
+```
+
+---
+## Historia de la imagen
+
+```bash
+$ docker build -t mikroways/nginx:1.2.0 .
+
+$ docker history f59c5df272d2
+  IMAGE          CREATED         CREATED BY                                      SIZE
+  f59c5df272d2   34 hours ago    /bin/sh -c #(nop)  CMD ["nginx" "-g" "daem...   0B
+  340fdfe97f9b   34 hours ago    /bin/sh -c #(nop)  EXPOSE 80/tcp                0B
+  059fb096e7ef   34 hours ago    /bin/sh -c apt-get update && apt-get insta...   95.4MB
   a1144bb80b28   11 minutes ago  /bin/sh -c #(nop)  MAINTAINER Leandro Di Tomm   0 B
   f753707788c5   4 weeks ago     /bin/sh -c #(nop)  CMD ["/bin/bash"]            0 B
   <missing>      4 weeks ago     /bin/sh -c mkdir -p /run/systemd && echo 'doc   7 B

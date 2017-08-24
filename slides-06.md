@@ -231,6 +231,18 @@ por `exit 1`.
   * [Flocker](https://clusterhq.com/flocker/introduction/)
 
 ---
+## Rancher
+
+* Interfaz web amigable para gestionar un cluster de Docker.
+* Incluye una API que permite administrar el cluster.
+* Utilidades de línea de comandos.
+* Soporta múltiples plataformas de clustering para Docker:
+  * Cattle: propia de Rancher, desde sus primeras versiones.
+  * Kubernetes: incorporada en la versión 0.63.
+  * Swarm: a partir de la versión 1.0.
+  * Apache Mesos: desde la versión 1.1.
+
+---
 ## Ejemplo Rancher
 
 ![sample](images/rancher-sample.png)

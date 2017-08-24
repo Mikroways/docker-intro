@@ -8,7 +8,7 @@
 </div>
 <div style="float: right; width: 65%" >
 <ul>
-<li>Fundador de Mikroways en 2004</li>
+<li>Fundador de Mikroways</li>
 <li>Docente en UNLP</li>
 <li>Trabajo en administración de redes y servidores desde 2007</li>
 <li>Con DevOps desde 2013, Docker 2014</li>

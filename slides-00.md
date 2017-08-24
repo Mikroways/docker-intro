@@ -8,7 +8,7 @@
 
 * ¿Quiénes somos?
 * Docker: introducción
-*  Consideraciones para trabajar con docker
+* Consideraciones para trabajar con Docker
 * Volúmenes
 * Docker Compose
 * Docker en producción
