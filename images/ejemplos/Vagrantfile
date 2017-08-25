@@ -1,0 +1,66 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      sudo apt-get -y install \
+           apt-transport-https \
+           ca-certificates \
+           curl \
+           software-properties-common
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+      sudo add-apt-repository \
+         "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+         $(lsb_release -cs) \
+         stable"
+      sudo apt-get update
+      sudo apt-get install -y docker-ce
+      docker inspect redis_server > /dev/null 2>&1  || docker run --name redis_server -d redis
+  SHELL
+  config.vm.define 'ubuntu14' do |machine|
+    machine.vm.hostname = 'ubuntu14'
+    machine.vm.box = "bento/ubuntu-14.04"
+
+    machine.vm.network "private_network", ip: "192.168.33.10"
+    machine.vm.provision "shell", inline: <<-SHELL
+      echo 'description "Redis container"' > /etc/init/redis-docker.conf
+      echo 'author "Me"' >> /etc/init/redis-docker.conf
+      echo 'start on filesystem and started docker' >> /etc/init/redis-docker.conf
+      echo 'stop on runlevel [!2345]' >> /etc/init/redis-docker.conf
+      echo 'respawn' >> /etc/init/redis-docker.conf
+      echo 'script' >> /etc/init/redis-docker.conf
+      echo '  /usr/bin/docker start -a redis_server' >> /etc/init/redis-docker.conf
+      echo 'end script' >> /etc/init/redis-docker.conf
+      initctl reload-configuration
+      start redis-docker
+    SHELL
+  end
+
+  config.vm.define 'ubuntu16' do |machine|
+    machine.vm.hostname = 'ubuntu16'
+    machine.vm.box = "bento/ubuntu-16.04"
+
+    machine.vm.network "private_network", ip: "192.168.33.11"
+    machine.vm.provision "shell", inline: <<-SHELL
+      echo '[Unit]' > /etc/systemd/system/redis-docker.service
+      echo 'Description=Redis container' >> /etc/systemd/system/redis-docker.service
+      echo 'Requires=docker.service' >> /etc/systemd/system/redis-docker.service
+      echo 'After=docker.service' >> /etc/systemd/system/redis-docker.service
+      echo '' >> /etc/systemd/system/redis-docker.service
+      echo '[Service]' >> /etc/systemd/system/redis-docker.service
+      echo 'Restart=always' >> /etc/systemd/system/redis-docker.service
+      echo 'ExecStart=/usr/bin/docker start -a redis_server' >> /etc/systemd/system/redis-docker.service
+      echo 'ExecStop=/usr/bin/docker stop -t 2 redis_server' >> /etc/systemd/system/redis-docker.service
+      echo '' >> /etc/systemd/system/redis-docker.service
+      echo '[Install]' >> /etc/systemd/system/redis-docker.service
+      echo 'WantedBy=default.target' >> /etc/systemd/system/redis-docker.service
+      systemctl enable redis-docker.service
+      service redis-docker start
+    SHELL
+  end
+end

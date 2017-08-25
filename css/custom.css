@@ -1,0 +1,35 @@
+.reveal section img {
+  background:none;
+  border:none;
+  box-shadow:none;
+}
+
+.product_logos {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+table.product_logos td {
+  border-bottom: none;
+}
+.product_logos td  {
+  vertical-align: middle;
+}
+.product_logos a, .product_logos a:visited {
+  color: #4a4a4a !important;
+}
+
+.product_logos a:hover {
+  color: #7a7a7a;
+}
+
+.product_logos img {
+  height: 100px;
+}
+
+.reveal a {
+  color:  #ffff99;
+}
+
+img.circle {
+  border-radius: 100%;
+}
