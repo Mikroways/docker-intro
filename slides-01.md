@@ -34,6 +34,20 @@ perteneciente a CeSPI </li>
 </div>
 
 ---
+## Gerónimo Afonso
+
+<div style="float: left; width: 30%" >
+  <img class="circle" src="images/gero.jpg" />
+</div>
+<div style="float: right; width: 65%" >
+<ul>
+<li>Alumno en UNLP</li>
+<li>Formo parte del equipo de Mikroways desde 2016</li>
+<li>Trabajo como DevOps con Docker</li>
+</ul>
+</div>
+
+---
 ## ¿Qué hacemos en nuestro trabajo?
 
 * Desde fines de 2013, nos consolidamos como equipo de IT para el área de
